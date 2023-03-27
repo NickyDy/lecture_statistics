@@ -1,0 +1,870 @@
+---
+title: "Анализ на данни, визуализация и тестване на хипотези."
+author: "Николай Дяков"
+format: html
+date: 2023-03-25
+knitr:
+  opts_chunk:
+    fig.width: 8
+    fig.asp: 0.618
+    out.width: 800
+    message: false
+    warning: false
+    echo: true
+editor_options: 
+  chunk_output_type: console
+bibliography: references.bib
+---
+
+### I. Първи стъпки с R и RStudio. Импортиране на данни.
+
+1.  Последователни стъпки при анализа на данни.
+
+![Последователни стъпки при анализа на данни [@wickham2016r]](data_analysis_steps.png)
+
+2.  Инсталиране на R.
+
+<https://cloud.r-project.org/>
+
+3.  Инсталиране на RStudio.
+
+<https://posit.co/download/rstudio-desktop/>
+
+4.  Какво представлява RStudio.
+
+![Компоненти на RStudio.](rstudio-panes-labeled.jpeg)
+
+5.  Инсталитране и деинсталиране на библиотеки/пакети.
+
+install.packages("tidyverse")
+
+remove.packages("tidyverse")
+
+6.  Стартиране на код - Ctrl + Enter.
+
+```{r}
+2 + 2
+
+x <- 6
+y <- 10
+
+(x + y)^2
+```
+
+7.  Импортиране на данни.
+
+```{r}
+library(tidyverse)
+
+students <- read_csv("students.csv")
+```
+
+```{r}
+students <- read_csv("https://pos.it/r4ds-students-csv")
+```
+
+8.  Бърз преглед на структурата на данните.
+
+```{r}
+glimpse(students)
+
+diss <- read_csv("diss.csv")
+glimpse(diss)
+```
+
+9.  Отстраняване на нежелани стойности още при импортирането.
+
+```{r}
+students <- read_csv("students.csv", na = c("N/A", "NA"))
+```
+
+10. Дефиниране типа на колонките още при импортирането.
+
+```{r}
+students <- read_csv("students.csv", na = c("N/A", "NA"), col_types = "icccd")
+```
+
+11. Преименуване на колонките.
+
+```{r}
+students %>% rename(student_id = `Student ID`, full_name = `Full Name`)
+```
+
+12. Автоматично преименуване.
+
+```{r}
+library(janitor)
+students %>% clean_names()
+```
+
+13. Импортиране на други типове файлове.
+
+```{r eval=FALSE}
+read_tsv() # разделител tab
+read_delim() # неизвестен разделител
+
+library(readxl)
+read_excel() # екселски файл
+```
+
+14. Запис на файл.
+
+```{r}
+write_csv(students, "students_clean.csv")
+write_rds(students, "students_clean.rds")
+```
+
+15. Създаване на данни в R.
+
+```{r}
+tibble(
+  x = c(1, 2, 5), 
+  y = c("h", "m", "g"),
+  z = c(0.08, 0.83, 0.60)
+)
+
+tribble(
+  ~x, ~y, ~z,
+  "h", 1, 0.08,
+  "m", 2, 0.83,
+  "g", 5, 0.60,
+)
+
+df <- tibble(
+  integer = sample(c(1:50), 100, replace = T),
+  double = rnorm(100),
+  character = sample(letters[1:26], 100, replace = T),
+  factor = factor(sample(c("tree", "animal", "fungi"), 100, replace = T)),
+  logical = as.logical(sample(c("TRUE", "FALSE"), 100, replace = T)),
+  date = Sys.Date() - 100
+)
+glimpse(df)
+```
+
+### II. Трансформиране на данните.
+
+1.  Tidyverse и Dplyr.
+
+![](tidyverse2.png)
+
+2.  Филтриране на редове с функцията filter().
+
+```{r}
+diss %>% filter(elev > 1500)
+
+diss %>% filter(elev > 1500 & top == "flat")
+
+diss %>% filter(top == "concave" | exp == "e_nw")
+
+diss %>% filter(com %in% c("a", "b"))
+
+diss_up_to_1000 <- diss %>% filter(!elev > 1500)
+```
+
+3.  Подреждане с функцията arrange().
+
+```{r}
+diss %>% arrange(elev)
+
+diss %>% arrange(desc(elev))
+```
+
+4.  Уникални редове с функцията distinct().
+
+```{r}
+diss %>% distinct()
+
+diss %>% distinct(top, exp)
+```
+
+5.  Преброяване на уникалните редове с функцията count().
+
+```{r}
+diss %>% count(top, exp)
+
+diss %>% count(top, exp, sort = T)
+```
+
+6.  Създаване на нови колонки с функцията mutate().
+
+```{r}
+diss %>% mutate(elev_slope = elev/slope) %>% View()
+
+diss %>% mutate(elev_slope = elev/slope, .after = slope) %>% View()
+
+diss %>% mutate(elev_slope = elev/slope, .after = slope, .keep = "used") %>% View()
+```
+
+7.  Избор на колонки с функцията select().
+
+```{r}
+diss %>% select(com, elev, slope)
+
+diss %>% select(com:slope)
+
+diss %>% select(!com:slope)
+
+diss %>% select(where(is.character))
+
+diss %>% select(where(is.numeric))
+
+diss %>% select(starts_with("x"))
+```
+
+8.  Преименуване на колонки с функцията rename().
+
+```{r}
+diss %>% rename(elev_m = elev)
+```
+
+9.  Преместване на колонки с функцията relocate().
+
+```{r}
+diss %>% relocate(elev, slope)
+
+diss %>% relocate(elev:s_m2, .before = plot)
+
+diss %>% relocate(starts_with("x"), .before = plot)
+```
+
+10. Оператора "pipe" - %\>%.
+
+```{r}
+diss %>% 
+  filter(elev > 1500) %>% 
+  mutate(elev_slope = elev / slope) %>% 
+  select(plot, elev, slope, elev_slope) %>% 
+  arrange(desc(elev_slope))
+
+arrange(
+  select(
+    mutate(
+      filter(
+        diss, 
+        elev > 1500
+      ),
+      elev_slope = elev / slope
+    ),
+    plot, elev, slope, elev_slope
+  ),
+  desc(elev_slope)
+)
+```
+
+11. Групиране с функцията group_by().
+
+```{r}
+diss %>% group_by(top)
+```
+
+12. Резюмиране/преизчисляване с функцията summarize().
+
+```{r}
+diss %>% group_by(top) %>% summarise(m_elev = mean(elev))
+
+students %>% group_by(mealPlan) %>% summarise(s = sum(AGE))
+
+students %>% group_by(mealPlan) %>% summarise(s = sum(AGE, na.rm = T))
+
+students %>% group_by(mealPlan) %>% summarise(s = sum(AGE, na.rm = T), n = n())
+```
+
+13. Функцията slice\_().
+
+```{r}
+diss %>% slice_head(n = 10)
+
+diss %>% slice_tail(n = 10)
+
+diss %>% slice_min(order_by = elev, n = 10)
+
+diss %>% slice_max(order_by = elev, n = 10)
+
+diss %>% slice_sample(n = 10)
+```
+
+### III. Изчистване/спретване на данните.
+
+![Какво се разбира под спретнати данни [@wickham2016r]](tidy-1.png)
+
+1.  Удължаване на данните с функцията pivot_longer().
+
+```{r}
+df <- tribble(
+  ~id,  ~bp1, ~bp2,
+   "A",  100,  120,
+   "B",  140,  115,
+   "C",  120,  125)
+
+df %>% 
+  pivot_longer(
+    cols = bp1:bp2,
+    names_to = "measurement",
+    values_to = "value")
+```
+
+![Какво се случва при удължаването на данните [@wickham2016r]](longering.png){alt="Какво се случва при удължаването на данните [@wickham2016r]"}
+
+```{r}
+billboard %>% View()
+
+billboard %>% 
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    values_to = "rank") %>% View()
+
+billboard %>% 
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    values_to = "rank",
+    values_drop_na = TRUE) %>% View()
+```
+
+2.  Разширяване на данните с функцията pivot_wider().
+
+```{r}
+df <- tribble(
+  ~id, ~measurement, ~value,
+  "A",        "bp1",    100,
+  "B",        "bp1",    140,
+  "B",        "bp2",    115, 
+  "A",        "bp2",    120,
+  "A",        "bp3",    105)
+
+df %>% 
+  pivot_wider(
+    names_from = measurement,
+    values_from = value)
+```
+
+```{r}
+diss_long <- diss %>% 
+  select(plot, trees:annuals) %>% 
+  pivot_longer(-plot)
+
+diss_long %>% 
+  pivot_wider()
+```
+
+### IV. Визуализация на данните.
+
+1.  Последователни стъпки при създаване на графика/плот.
+
+```{r}
+diss %>% ggplot()
+```
+
+```{r}
+diss %>% ggplot(aes(elev, slope))
+```
+
+```{r}
+diss %>% ggplot(aes(elev, slope))
+```
+
+```{r}
+diss %>% ggplot(aes(elev, slope)) +
+  geom_point()
+```
+
+```{r}
+diss %>% ggplot(aes(elev, slope, color = top)) +
+  geom_point(size = 3)
+```
+
+```{r}
+diss %>% ggplot(aes(elev, slope, color = top, shape = top)) +
+  geom_point(size = 3)
+```
+
+```{r}
+diss %>% ggplot(aes(elev, slope, color = top, shape = top)) +
+  geom_point(size = 3) +
+  geom_smooth(method = "loess")
+```
+
+```{r}
+diss %>% ggplot(aes(elev, slope, color = top, shape = top)) +
+  geom_point(size = 3) +
+  geom_smooth(method = "loess", se = F)
+```
+
+```{r}
+diss %>% ggplot(aes(elev, slope)) +
+  geom_point(size = 3, aes(color = top, shape = top)) +
+  geom_smooth(method = "loess", se = F)
+```
+
+```{r}
+diss %>% ggplot(aes(elev, slope)) +
+  geom_point(size = 3, aes(color = top, shape = top)) +
+  geom_smooth(method = "loess", se = F) +
+  labs(x = "Надморска височина (m)", y = "Наклон на склона (°)",
+       title = "Взаимовръзка между надморската височина и наклона на склоновете",
+       color = "Топография\nна склона", shape = "Топография\nна склона",
+       caption = "Източник на данните: Дяков, 2013") +
+  theme(text = element_text(size = 16))
+```
+
+2.  Основни видове графики в ggplot2.
+
+    2.1. Графики, показващи разпределението на данните.
+
+```{r}
+diss %>% ggplot(aes(s_ha)) +
+  geom_histogram()
+
+diss %>% ggplot(aes(s_ha)) +
+  geom_histogram(binwidth = 1)
+```
+
+```{r}
+diss %>% ggplot(aes(s_ha)) +
+  geom_density()
+```
+
+```{r}
+diss %>% ggplot(aes(exp)) +
+  geom_bar()
+diss %>% ggplot(aes(fct_infreq(exp))) +
+  geom_bar()
+```
+
+2.2 Визуализиране на взаимовръзки.
+
+![Как да разчитаме боксплотовете[@wickham2016r]](EDA-boxplot.png)
+
+```{r}
+diss %>% ggplot(aes(exp, s_ha)) +
+  geom_boxplot()
+```
+
+```{r}
+diss %>% ggplot(aes(s_ha, color = top)) +
+  geom_density()
+```
+
+```{r}
+diss %>% ggplot(aes(s_ha, color = top, fill = top)) +
+  geom_density(alpha = 0.5)
+```
+
+2.3. Визуализация на две номинални променливи.
+
+```{r}
+diss %>% ggplot(aes(exp, fill = top)) +
+  geom_bar()
+
+diss %>% ggplot(aes(exp, fill = top)) +
+  geom_bar(position = "fill")
+
+diss %>% ggplot(aes(exp, fill = top)) +
+  geom_bar(position = "dodge")
+```
+
+2.4. Визуализация на две числови променливи.
+
+```{r}
+diss %>% ggplot(aes(elev, s_ha)) +
+  geom_point()
+```
+
+2.5. Три или повече променливи.
+
+```{r}
+diss %>% ggplot(aes(elev, s_ha, color = exp, shape = top)) +
+  geom_point(size = 3)
+
+diss %>% ggplot(aes(elev, s_ha, color = exp, shape = top)) +
+  geom_point(size = 3) +
+  facet_wrap(~ veg_type)
+
+diss %>% ggplot(aes(elev, s_ha, color = exp, shape = top)) +
+  geom_point(size = 3) +
+  facet_grid(veg_type ~ com)
+```
+
+2.6. Запазване на графиката.
+
+```{r}
+ggsave("plot.png")
+```
+
+### V. Тестване на хипотези.
+
+1.  Избор на правилния тест.
+
+![](images/flowchart-for-choosing-a-statistical-test.png)
+
+2.  Проверка за нормалност на променливите.
+
+![Нормално разпределена променлива[@navarro2013learning]](normal_dist.png)
+
+![Ненормално разпределена променлива[@navarro2013learning]](nonnormal_dist.png)
+
+3.  Взуална проверка.
+
+```{r}
+library(tidyverse)
+library(patchwork)
+
+diss <- read_csv("~/Desktop/R/data/diss.csv") %>% mutate_if(is.character, as.factor)
+
+p1 <- diss %>% ggplot(aes(s_ha)) +
+  geom_histogram(fill = "blue", color = "white")
+p2 <- diss %>% ggplot(aes(sample = s_ha)) +
+  geom_qq()
+```
+
+```{r}
+p1 + p2
+```
+
+4.  Проверка с тест за нормалност (Shapiro-Wilk).
+
+H0 = променливата е нормално разпределена;
+
+H1 = променливата е с ненормално разпределение.
+
+При p \< 0.05, H0 се отхвърля и се приема H1.
+
+```{r}
+library(jmv)
+diss %>% select(s_ha) %>% descriptives(sw = T)
+```
+
+![Източник:[@ggstatsplot]](ggstatsplot_logo.png){width="200"}
+
+![Източник:[@ggstatsplot-2]](ggstatsplot_reporting.png)
+
+5.  Сравняване на независими извадки.
+
+    5.1. Параметричен тест за 2 групи - Student's and Welch's t-test
+
+Условия на теста:
+
+-   нормалност на променливите;
+-   независимост на променливите;
+-   хомогенност на дисперсията.
+
+```{r}
+library(readxl)
+library(ggstatsplot)
+t_test <- read_excel("~/Desktop/R/various/jam_data.xlsx", sheet = 14)
+
+t_test %>% descriptives(splitBy = "tutor", sw = T)
+
+t_test %>%
+  ggbetweenstats(tutor, grade,
+    plot.type = "box", type = "p", bf.message = FALSE, xlab = "Tutor",
+    ylab = "Grade", centrality.type = "p", centrality.point.args = list(size = 4, color = "darkred"),
+    ggplot.component = theme(text = element_text(size = 18), plot.subtitle = element_text(size = 14)),
+    centrality.label.args = list(size = 5, nudge_x = 0.4, segment.linetype = 4, min.segment.length = 0))
+```
+
+5.2. Параметричен тест за \> 2 групи - Fisher's and Welch's one-way ANOVA
+
+Условия на теста:
+
+-   нормалност на променливите;
+-   независимост на променливите;
+
+```{r}
+one_way_anova <- read_excel("~/Desktop/R/various/jam_data.xlsx", sheet = 20)
+
+one_way_anova %>% descriptives(splitBy = "test", sw = T)
+
+one_way_anova %>%
+  ggbetweenstats(test, score, pairwise.comparisons = T, pairwise.display = "all",
+    plot.type = "box", type = "p", bf.message = FALSE, xlab = "Test",
+    ylab = "Score", centrality.type = "p", centrality.point.args = list(size = 4, color = "darkred"),
+    ggplot.component = theme(text = element_text(size = 18), plot.subtitle = element_text(size = 14)),
+    centrality.label.args = list(size = 5, nudge_x = 0.4, segment.linetype = 4, min.segment.length = 0))
+```
+
+5.3. Непараметричен тест за 2 групи - Wilcoxon W (Mann-Whitney U) test
+
+```{r}
+sheet_15 <- read_excel("~/Desktop/R/various/jam_data.xlsx", sheet = 15)
+
+sheet_15 %>%
+  ggbetweenstats(group, scores,
+    plot.type = "box", type = "np", bf.message = FALSE, xlab = "Group",
+    ylab = "Scores", centrality.type = "np", centrality.point.args = list(size = 4, color = "darkred"),
+    ggplot.component = theme(text = element_text(size = 18), plot.subtitle = element_text(size = 14)),
+    centrality.label.args = list(size = 5, nudge_x = 0.4, segment.linetype = 4, min.segment.length = 0))
+```
+
+5.4. Непараметричен тест за \> 2 групи - Kruskal-Wallis Rank Sum Test
+
+```{r}
+sheet_25 <- read_excel("~/Desktop/R/various/jam_data.xlsx", sheet = 25)
+
+sheet_25 %>%
+  ggbetweenstats(drug, mood.gain, 
+                 pairwise.comparisons = T, pairwise.display = "all",
+    plot.type = "box", type = "np", bf.message = FALSE, xlab = "Drug", 
+    ylab = "Mood gain", centrality.type = "np", centrality.point.args = list(size = 4, color = "darkred"),
+    ggplot.component = theme(text = element_text(size = 18), plot.subtitle = element_text(size = 14)),
+    centrality.label.args = list(size = 5, nudge_x = 0.4, segment.linetype = 4, min.segment.length = 0))
+```
+
+6.  Сравняване на зависими (свързани) извадки.
+
+6.1. Параметричен тест за 2 групи - Student's t-test
+
+Условия на теста:
+
+-   нормалност на променливите;
+-   независимост на променливите;
+-   хомогенност на дисперсията.
+
+```{r}
+sheet_1 <- read_excel("~/Desktop/R/various/jam_data.xlsx", sheet = 1)
+
+sheet_1 %>% descriptives(splitBy = "treatment", sw = T)
+
+sheet_1 %>%
+  mutate(treatment = fct_relevel(treatment, "before", "after")) %>%
+  ggwithinstats(treatment, measurement,
+    plot.type = "box", type = "p", bf.message = FALSE, xlab = "Treatment",
+    ylab = "Measurement", centrality.type = "p", centrality.point.args = list(size = 4, color = "darkred"),
+    ggplot.component = theme(text = element_text(size = 18), plot.subtitle = element_text(size = 14)),
+    centrality.label.args = list(size = 5, nudge_x = 0.4, segment.linetype = 4, min.segment.length = 0))
+```
+
+6.2. Параметричен тест за \> 2 групи - Fisher's one-way repeated measures ANOVA
+
+Условия на теста:
+
+-   нормалност на променливите;
+-   независимост на променливите;
+-   хомогенност на дисперсията.
+
+```{r}
+sheet_18 <- read_excel("~/Desktop/R/various/jam_data.xlsx", sheet = 18)
+
+sheet_18 %>% descriptives(splitBy = "test", sw = T)
+
+sheet_18 %>%
+  ggwithinstats(test, grade, pairwise.comparisons = T, pairwise.display = "all",
+    plot.type = "box", type = "p", bf.message = FALSE, xlab = "Test",
+    ylab = "Grade", centrality.type = "p", centrality.point.args = list(size = 4, color = "darkred"),
+    ggplot.component = theme(text = element_text(size = 18), plot.subtitle = element_text(size = 14)),
+    centrality.label.args = list(size = 5, nudge_x = 0.4, segment.linetype = 4, min.segment.length = 0))
+```
+
+6.3. Непараметричен тест за 2 групи - Wilcoxon signed-rank test
+
+```{r}
+sheet_1 %>%
+  mutate(treatment = fct_relevel(treatment, "before", "after")) %>%
+  ggwithinstats(treatment, measurement,
+    plot.type = "box", type = "np", bf.message = FALSE, xlab = "Treatment",
+    ylab = "Measurement", centrality.type = "np", centrality.point.args = list(size = 4, color = "darkred"),
+    ggplot.component = theme(text = element_text(size = 18), plot.subtitle = element_text(size = 14)),
+    centrality.label.args = list(size = 5, nudge_x = 0.4, segment.linetype = 4, min.segment.length = 0))
+```
+
+6.4. Непараметричен тест за \> 2 групи - Friedman rank sum test
+
+```{r}
+sheet_18 %>%
+  ggwithinstats(test, grade, pairwise.comparisons = T, pairwise.display = "all",
+    plot.type = "box", type = "np", bf.message = FALSE, xlab = "Test", 
+    ylab = "Grade", centrality.type = "np", centrality.point.args = list(size = 4, color = "darkred"),
+    ggplot.component = theme(text = element_text(size = 18), plot.subtitle = element_text(size = 14)),
+    centrality.label.args = list(size = 5, nudge_x = 0.4, segment.linetype = 4, min.segment.length = 0))
+```
+
+7.  Корелационен анализ.
+
+7.1. Параметричен - Pearson's r
+
+```{r}
+diss %>% select(elev, slope, s_ha, s_m2, invasive, rare) %>% descriptives(sw = T)
+
+diss %>%
+  ggcorrmat(
+    cor.vars = c(elev, slope, s_ha, s_m2, invasive, rare), type = "p",
+    ggcorrplot.args = list(method = "square", outline.color = "black", pch.cex = 14),
+    ggplot.component = theme(text = element_text(size = 18), plot.subtitle = element_text(size = 14)))
+```
+
+7.2. Непараметричен - Spearman's ρ
+
+```{r}
+diss %>%
+  ggcorrmat(
+    cor.vars = c(elev, slope, tree_cover, herb_cover, total_stems), type = "np",
+    ggcorrplot.args = list(method = "square", outline.color = "black", pch.cex = 14),
+    ggplot.component = theme(text = element_text(size = 18), plot.subtitle = element_text(size = 14)))
+```
+
+8.  Тестове за номинални данни.
+
+8.1. Параметричен тест за независими извадки (тест за независимост/асоциация) - Pearson's χ2
+
+Условия на теста:
+
+-   извадките са достатъчно големи (\> 5 наблюдения);
+-   независимост на променливите.
+
+H0 = направеният избор не зависи от субекта;
+
+H1 = направеният избор е асоцииран, зависи от, субекта.
+
+Ако p \< 0.05, H0 се отхвърля!
+
+```{r}
+sheet_24 <- read_excel("~/Desktop/R/various/jam_data.xlsx", sheet = 24)
+
+sheet_24 %>%
+  ggbarstats(choice, species,
+    bf.message = FALSE,
+    legend.title = "Choice:", xlab = "Species", ylab = NULL,
+    ggplot.component = theme(text = element_text(size = 14)))
+```
+
+**Интерпретация**: тестът на Pearson's χ2 показа, че има статистически значима асоциация между вида на субекта и неговия избор.
+
+8.2. Параметричен тест за зависими (свързани) извадки - McNemar's test
+
+Две групи пациенти са питани дали биха използвали дадено лекарство. След като са посочили своя отговор с "да" и "не", им се показва информационно видео за лекарството. След това, те са питани отново дали биха използвали медикамента.
+
+H0 = показаното видео не е повлияло върху избора на пациентите;
+
+H1 = показаното видео е повлияло върху избора на пациентите.
+
+Ако p \< 0.05, H0 се отхвърля!
+
+```{r}
+sheet_16 <- read_excel("~/Desktop/R/various/jam_data.xlsx", sheet = 16)
+
+sheet_16 %>%
+  mutate(treatment = fct_relevel(treatment, "before", "after")) %>%
+  ggbarstats(response, treatment,
+    bf.message = FALSE, paired = T,
+    legend.title = "Response:", xlab = "Treatment", ylab = NULL,
+    ggplot.component = theme(text = element_text(size = 14)))
+```
+
+8.3. Параметричен тест за еднаквост на пропорциите - GOF (goodness-of-fit) test
+
+Група хора са помолени да си изберат наум една карта от тесте с карти. След това са помолени отново да изберат карта. С този тест се опитваме да проверим дали картите са избрани напълно случайно. Ако са избрани сличайно, би трябвало боите да присъстват с еднаква вероятност в съответния избор.
+
+H0 = всяка една от боите е избрана с еднаква вероятност;
+
+H1 = поне една от боите е избрана с различна вероятност.
+
+Ако p \< 0.05, H0 се отхвърля!
+
+```{r}
+sheet_7 <- read_excel("~/Desktop/R/various/jam_data.xlsx", sheet = 7)
+
+ch_1 <- sheet_7 %>%
+  ggpiestats(choice_1,
+    bf.message = FALSE,
+    legend.title = "Card:", xlab = NULL, ylab = NULL,
+    ggplot.component = theme(text = element_text(size = 12)))
+ch_2 <- sheet_7 %>%
+  ggpiestats(choice_2,
+    bf.message = FALSE,
+    legend.title = "Card:", xlab = NULL, ylab = NULL,
+    ggplot.component = theme(text = element_text(size = 12)))
+```
+
+```{r}
+ch_1 / ch_2
+```
+
+**Интерпретация**: от 200-те участини, при първия избор, 32% са избрали купа, 25% са избрали спатия, 26% са избрали каро и 18% са избрали пика. GOF тестът е значим, което означава, че картите са избрани на неслучаен принцип. Същото се повтаря и при вторият тест, само че с различна боя карти.
+
+9.  Анализ на размера на извадката и силата на теста.
+
+```{r}
+library(pwr)
+t_test <- pwr.t.test(n = NULL, d = 0.5, sig.level = 0.05, power = 0.8,
+           type = c("paired"), alternative = c("two.sided"))
+plot(t_test, xlab = "Sample size", ylab = "Power")
+
+anova <- pwr.anova.test(k = 4, n = NULL, f = 0.25, sig.level = 0.05, power = 0.8)
+plot(anova, xlab = "Sample size", ylab = "Power")
+```
+
+10. Анализ на геномни данни.
+
+Първият пример касае данни от генната експресия на 60 проби от костен мозък на пациенти с един от четирите основни вида левкемия (ALL, AML, CLL, CML), както и контролна група без левкемия. Този набор от данни включва 1000-та най-променливи гени, тъй като гените, които не са много променливи, не допринасят много за разстоянията между пациентите.
+
+```{r}
+library(pheatmap)
+leu <- read_rds("leu_genes.rds")
+
+groups <- data.frame(Тип_левкемия = substr(colnames(leu), 1, 3))
+rownames(groups)= colnames(leu)
+
+pheatmap(leu, show_rownames = FALSE, show_colnames = FALSE,
+         annotation_col = groups,
+         scale = "none", clustering_method="ward.D2",
+         clustering_distance_cols = "euclidean")
+```
+
+Както се вижда на топлинната карта, всеки клъстер има различен набор от стойности на генната експресия. Основните клъстери почти перфектно разграничават видовете левкемия. Само един пациент с CML е групиран като проба без левкемия. Това показва, че профилите на генната експресия са достатъчни за класифициране на типа левкемия. Необходими са по-подробни анализи и експерименти, за да се потвърди това, но този първичен анализ, ни ориентира къде да съсредоточим усилията си по-нататък.
+
+```{r}
+library(factoextra)
+library(FactoMineR)
+
+leu_t <- t(leu)
+
+res.pca <- PCA(leu_t, scale.unit = TRUE, ncp = 5, ind.sup = NULL,
+             quanti.sup = NULL, quali.sup = NULL, row.w = NULL,
+             col.w = NULL, graph = F, axes = c(1,2))
+
+fviz_eig(res.pca, addlabels = TRUE, ylim = c(0, 40))
+
+fviz_pca_ind(
+  X = res.pca,
+  axes = c(1, 2),
+  title = "Подреждане на пациентите в ординационното пространство в зависимост от\nприноса им за формирането на главните компоненти",
+  geom = c("point", "text"),
+  geom.ind = c("point", "text"),
+  repel = TRUE,
+  habillage = "none",
+  palette = NULL,
+  addEllipses = FALSE,
+  col.ind = "contrib",
+  fill.ind = "white",
+  col.ind.sup = "blue",
+  gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+  alpha.ind = 1,
+  select.ind = list(name = NULL, cos2 = NULL, contrib = NULL))
+
+fviz_pca_biplot(
+  X = res.pca,
+  axes = 1:2,
+  title = NULL,
+  geom.ind = c("point", "text"),
+  geom.var = c("arrow", "text"),
+  select.var = list(contrib = 20),
+  col.ind = groups$Тип_левкемия,
+  fill.ind = groups$Тип_левкемия,
+  col.var = "black",
+  fill.var = "black",
+  gradient.cols = NULL,
+  label = "all",
+  invisible = "none",
+  repel = TRUE,
+  habillage = "none",
+  palette = "Dark2",
+  addEllipses = T,
+  ellipse.type = "convex",
+  pointshape = 21,
+  pointsize = 3,
+  labelsize = 3,
+  arrowsize = 0.7,
+  mean.point = FALSE,
+  legend.title = "Тип левкемия:")
+```
