@@ -881,7 +881,7 @@ fviz_pca_biplot(
 library(tidymodels)
 library(FFTrees)
 
-df <- read_rds("~/Desktop/R/cimp.rds") %>% 
+df <- read_rds("cimp.rds") %>% 
   mutate(subtype = fct_recode(subtype, "TRUE" = "CIMP", "FALSE" = "noCIMP")) %>% 
   select(subtype, 1:101) %>% select(-rowname)
 
