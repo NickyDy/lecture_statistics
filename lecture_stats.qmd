@@ -868,3 +868,50 @@ fviz_pca_biplot(
   mean.point = FALSE,
   legend.title = "Тип левкемия:")
 ```
+
+### V. Използване на машинно обучение за прогнозиране. Примери с геномни данни.
+
+1.  Класификация на туморни биопсии [@akalin2020computational].
+
+Първият пример е на машинно обучение с помощта на реален набор от данни от туморни биопсии. Ще използваме данните от генната експресия на проби от тумор на глиобластом. Ще се опитаме да прогнозираме подтипа на това заболяване с помощта на молекулярни маркери. Прогнозираната променлива е номинална (фактор) с две категории. Тя отразява широкомащабни епигенетични промени, наречени „фенотип на CpG островен метилатор" или „CIMP". Половината от пациентите в нашия набор от данни имат този подтип, а останалите не. Ще се опитаме да прогнозираме кои от тях имат подтип CIMP и кои не. В набора от данни всеки ред е пациент, а всяка колона е генна експресия. Имаме общо 184 туморни проби.
+
+![Източник: [@tidymodels]](tidymodels.png)
+
+```{r}
+library(tidymodels)
+library(FFTrees)
+
+df <- read_rds("~/Desktop/R/cimp.rds") %>% 
+  mutate(subtype = fct_recode(subtype, "TRUE" = "CIMP", "FALSE" = "noCIMP")) %>% 
+  select(subtype, 1:101) %>% select(-rowname)
+
+split <- initial_split(df, strata = subtype)
+train <- training(split)
+test <- testing(split)
+
+train_last <- train %>% mutate(subtype = as.logical(subtype))
+test_last <- test %>% mutate(subtype = as.logical(subtype))
+
+fit <- FFTrees(
+  formula = subtype ~ .,
+  data = train_last,
+  data.test = test_last,
+  decision.labels = c("No CIMP", "CIMP"),
+  do.comp = T)
+fit
+
+plot(fit, data = "train", main = "Risk of CIMP")
+
+plot(fit, data = "test", main = "Risk of CIMP")
+
+plot(fit, what = "cues", data = "train")
+
+library(gt)
+fit$competition$test %>%
+  mutate_if(is.numeric, round, 3) %>% 
+  gt()
+```
+
+2.  Прогнозиране на възрастта от ДНК метилация [@akalin2020computational].
+
+Вторият пример касае данни, при които прогнозираната променлива е количествена. Този път ще се опитаме да прогнозираме възрастта на индивидите от техните нива на ДНК метилиране. Метилирането е модификация на ДНК, която има отражение върху генната регулация и състоянието на клетката. Доказано е, че метилирането може да се използва за прогнозиране възрастта на индивида, от който е взета пробата. Сега ще се опитаме да тестваме това с набор от данни, съдържащ 108 проби.
