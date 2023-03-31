@@ -892,9 +892,22 @@ library(tidymodels)
 library(FFTrees)
 
 df <- read_rds("cimp.rds") %>% 
-  mutate(subtype = fct_recode(subtype, "TRUE" = "CIMP", "FALSE" = "noCIMP")) %>% 
-  select(subtype, 1:101) %>% select(-rowname)
+  relocate(subtype, .after = rowname) %>% 
+  janitor::clean_names()
+df <- df %>% pivot_longer(-c(rowname, subtype)) %>% 
+  group_by(name) %>% 
+  mutate(v = var(value)) %>% 
+  arrange(desc(v)) %>% 
+  ungroup() %>% 
+  select(-v) %>% 
+  pivot_wider(names_from = "name", values_from = "value") %>% 
+  select(1:2002)
 
+df <- df %>% 
+  mutate(subtype = fct_recode(subtype, "TRUE" = "CIMP", "FALSE" = "noCIMP")) %>% 
+  select(-rowname)
+
+set.seed(1023)
 split <- initial_split(df, strata = subtype)
 train <- training(split)
 test <- testing(split)
@@ -932,7 +945,7 @@ fit$competition$test %>%
 
 2.2.1. Последователни стъпки при моделирането с tidymodels.
 
-![Източник: ](modelling_steps.png)
+![Източник:](modelling_steps.png)
 
 -   разделяне на данните на данни за трениране, данни за тестване и данни за валидиране на модела;
 
@@ -940,7 +953,7 @@ fit$competition$test %>%
 
 -   създаване на извадки от данните за кросвалидиране;
 
-![Източник: ](crossvalidation.png)
+![Източник:](crossvalidation.png)
 
 -   подготовка на данните за използването им от модела;
 
