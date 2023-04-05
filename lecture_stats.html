@@ -380,12 +380,12 @@ $ total_stems &lt;dbl&gt; 195, 369, 610, 121, 131, 239, 342, 268, 98, 295, 86, 2
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 100
 Columns: 6
-$ integer   &lt;int&gt; 41, 14, 49, 4, 1, 34, 4, 9, 27, 38, 46, 24, 6, 18, 41, 10, 4…
-$ double    &lt;dbl&gt; 0.72176382, 0.01484578, 1.16480450, 0.51742617, 2.27443718, …
-$ character &lt;chr&gt; "y", "f", "e", "m", "n", "u", "r", "c", "e", "e", "n", "u", …
-$ factor    &lt;fct&gt; fungi, tree, fungi, fungi, fungi, fungi, tree, animal, anima…
-$ logical   &lt;lgl&gt; FALSE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, FAL…
-$ date      &lt;date&gt; 2022-12-19, 2022-12-19, 2022-12-19, 2022-12-19, 2022-12-19,…</code></pre>
+$ integer   &lt;int&gt; 14, 28, 1, 40, 48, 18, 7, 33, 20, 13, 6, 2, 27, 46, 2, 32, 3…
+$ double    &lt;dbl&gt; 0.459002080, 0.206885281, -0.654608666, 0.110309345, 0.41893…
+$ character &lt;chr&gt; "e", "w", "z", "r", "e", "p", "o", "d", "g", "a", "l", "h", …
+$ factor    &lt;fct&gt; tree, tree, tree, animal, fungi, animal, animal, animal, fun…
+$ logical   &lt;lgl&gt; TRUE, TRUE, TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, TR…
+$ date      &lt;date&gt; 2022-12-21, 2022-12-21, 2022-12-21, 2022-12-21, 2022-12-21,…</code></pre>
 </div>
 </div>
 </section>
@@ -1085,16 +1085,16 @@ $ date      &lt;date&gt; 2022-12-19, 2022-12-19, 2022-12-19, 2022-12-19, 2022-12
 <pre><code># A tibble: 10 × 36
    plot  com   veg_type exp   top    elev slope  s_ha  s_m2    n2     e invasive
    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
- 1 w160… l     s        ees_… flat   1600    13    49    14    30   0.8        3
- 2 sw12… a     f        e_nw  conv…  1250    24    37     6    12   0.6        1
- 3 ssw1… e     f        n_ne… flat   1397    17     9     2     2   0.6        0
- 4 ssw1… l     s        se_w  flat   1806    18    55    12    30   0.8        1
- 5 ssw1… i     f        sse_… conv…  1010    17    37     7    16   0.7        1
- 6 ssw1… g     f        se_w  flat   1455     8    16     2     5   0.7        2
- 7 e212… m     s        e_nw  flat   2121    16    39    11    20   0.8        2
- 8 sse2… n     s        s_sw… conc…  2000    10    60    11    31   0.7        3
- 9 ssw1… k     s        sse_… flat   1515     9    61    18    33   0.8        3
-10 e202… m     s        e_nw  conc…  2020    22    53    11    33   0.8        3
+ 1 sww1… e     f        n_ne… flat   1380    25    16     3     4   0.6        0
+ 2 see1… g     f        sse_… conv…  1353    20    44     6    19   0.7        4
+ 3 see1… g     f        se_w  flat   1272    10    51     5    21   0.7        4
+ 4 w151… e     f        se_w  conv…  1513     8    16     1     2   0.5        1
+ 5 sww1… l     s        e_nw  flat   1900    18    41     8    19   0.7        2
+ 6 se20… l     s        s_sw… conc…  2000     7    56    16    34   0.8        4
+ 7 e130… b     f        een_… flat   1301    28    24     5    11   0.7        0
+ 8 sw14… d     f        e_nw  flat   1439    26    29     4     7   0.5        1
+ 9 sse1… f     f        se_w  flat   1500    17    37     3    12   0.6        2
+10 e149… c     f        n_ne… flat   1497    25    22     4     8   0.7        0
 # ℹ 24 more variables: rare &lt;dbl&gt;, tree_cover &lt;dbl&gt;, shrub_cover &lt;dbl&gt;,
 #   herb_cover &lt;dbl&gt;, ph &lt;dbl&gt;, ch &lt;dbl&gt;, h &lt;dbl&gt;, cr &lt;dbl&gt;, th &lt;dbl&gt;,
 #   trees &lt;dbl&gt;, shrubs &lt;dbl&gt;, semishrubs &lt;dbl&gt;, perennials &lt;dbl&gt;,
@@ -1894,9 +1894,19 @@ $ date      &lt;date&gt; 2022-12-19, 2022-12-19, 2022-12-19, 2022-12-19, 2022-12
 <p><img src="lecture_stats_files/figure-html/unnamed-chunk-65-2.png" class="img-fluid" width="800"></p>
 </div>
 </div>
-<ol start="10" type="1">
-<li>Анализ на геномни данни.</li>
+</section>
+<section id="v.-използване-на-машинно-обучение-за-прогнозиране.-примери-с-геномни-данни." class="level3">
+<h3 class="anchored" data-anchor-id="v.-използване-на-машинно-обучение-за-прогнозиране.-примери-с-геномни-данни.">V. Използване на машинно обучение за прогнозиране. Примери с геномни данни.</h3>
+<ol type="1">
+<li>Неконтролирано обучение.</li>
 </ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="unsupervised_learning.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Източник: <span class="citation" data-cites="rhys2020machine">(<a href="#ref-rhys2020machine" role="doc-biblioref">Rhys 2020</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<p>1.1. Класификация.</p>
 <p>Първият пример касае данни от генната експресия на 60 проби от костен мозък на пациенти с един от четирите основни вида левкемия (ALL, AML, CLL, CML), както и контролна група без левкемия. Този набор от данни включва 1000-та най-променливи гени, тъй като гените, които не са много променливи, не допринасят много за разстоянията между пациентите.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb154"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pheatmap)</span>
@@ -1914,6 +1924,13 @@ $ date      &lt;date&gt; 2022-12-19, 2022-12-19, 2022-12-19, 2022-12-19, 2022-12
 </div>
 </div>
 <p>Както се вижда на топлинната карта, всеки клъстер има различен набор от стойности на генната експресия. Основните клъстери почти перфектно разграничават видовете левкемия. Само един пациент с CML е групиран като проба без левкемия. Това показва, че профилите на генната експресия са достатъчни за класифициране на типа левкемия. Необходими са по-подробни анализи и експерименти, за да се потвърди това, но този първичен анализ, ни ориентира къде да съсредоточим усилията си по-нататък.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="factoextra-r-package.webp" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><span class="citation" data-cites="factoextra">(<a href="#ref-factoextra" role="doc-biblioref">Kassambara and Mundt 2020</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<p>1.2. Ординация (PCA).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb155"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
 <span id="cb155-2"><a href="#cb155-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FactoMineR)</span>
@@ -1976,40 +1993,51 @@ $ date      &lt;date&gt; 2022-12-19, 2022-12-19, 2022-12-19, 2022-12-19, 2022-12
 <p><img src="lecture_stats_files/figure-html/unnamed-chunk-67-3.png" class="img-fluid" width="800"></p>
 </div>
 </div>
-</section>
-<section id="v.-използване-на-машинно-обучение-за-прогнозиране.-примери-с-геномни-данни." class="level3">
-<h3 class="anchored" data-anchor-id="v.-използване-на-машинно-обучение-за-прогнозиране.-примери-с-геномни-данни.">V. Използване на машинно обучение за прогнозиране. Примери с геномни данни.</h3>
-<ol type="1">
-<li>Класификация на туморни биопсии<span class="citation" data-cites="akalin2020computational">(<a href="#ref-akalin2020computational" role="doc-biblioref">Akalin 2020</a>)</span>.</li>
+<ol start="2" type="1">
+<li>Контролирано обучение.</li>
 </ol>
-<p>Първият пример е на машинно обучение с помощта на реален набор от данни от туморни биопсии. Ще използваме данните от генната експресия на проби от тумор на глиобластом. Ще се опитаме да прогнозираме подтипа на това заболяване с помощта на молекулярни маркери. Прогнозираната променлива е номинална (фактор) с две категории. Тя отразява широкомащабни епигенетични промени, наречени „фенотип на CpG островен метилатор" или „CIMP". Половината от пациентите в нашия набор от данни имат този подтип, а останалите не. Ще се опитаме да прогнозираме кои от тях имат подтип CIMP и кои не. В набора от данни всеки ред е пациент, а всяка колона е генна експресия. Имаме общо 184 туморни проби.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="tidymodels.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Източник:<span class="citation" data-cites="tidymodels">(<a href="#ref-tidymodels" role="doc-biblioref">Kuhn and Wickham 2020</a>)</span></figcaption><p></p>
+<p><img src="supervised_learning.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Източник: <span class="citation" data-cites="rhys2020machine">(<a href="#ref-rhys2020machine" role="doc-biblioref">Rhys 2020</a>)</span></figcaption><p></p>
 </figure>
 </div>
+<p>2.1. Класификация на туморни биопсии <span class="citation" data-cites="akalin2020computational">(<a href="#ref-akalin2020computational" role="doc-biblioref">Akalin 2020</a>)</span>.</p>
+<p>Първият пример е на машинно обучение с помощта на реален набор от данни от туморни биопсии. Ще използваме данните от генната експресия на проби от тумор на глиобластом. Ще се опитаме да прогнозираме подтипа на това заболяване с помощта на молекулярни маркери. Прогнозираната променлива е номинална (фактор) с две категории. Тя отразява широкомащабни епигенетични промени, наречени „фенотип на CpG островен метилатор” или „CIMP”. Половината от пациентите в нашия набор от данни имат този подтип, а останалите не. Ще се опитаме да прогнозираме кои от тях имат подтип CIMP и кои не. В набора от данни всеки ред е пациент, а всяка колона е генна експресия. Имаме общо 184 туморни проби. Ще използваме модела FFTrees <span class="citation" data-cites="phillips2017fftrees">(<a href="#ref-phillips2017fftrees" role="doc-biblioref">Phillips et al. 2017</a>)</span> и метабиблиотеката tidymodels <span class="citation" data-cites="tidymodels">(<a href="#ref-tidymodels" role="doc-biblioref">Kuhn and Wickham 2020</a>)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb158"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb158-1"><a href="#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
 <span id="cb158-2"><a href="#cb158-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FFTrees)</span>
 <span id="cb158-3"><a href="#cb158-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb158-4"><a href="#cb158-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"~/Desktop/R/cimp.rds"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb158-5"><a href="#cb158-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">subtype =</span> <span class="fu">fct_recode</span>(subtype, <span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"CIMP"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"noCIMP"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb158-6"><a href="#cb158-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(subtype, <span class="dv">1</span><span class="sc">:</span><span class="dv">101</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>rowname)</span>
-<span id="cb158-7"><a href="#cb158-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb158-8"><a href="#cb158-8" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(df, <span class="at">strata =</span> subtype)</span>
-<span id="cb158-9"><a href="#cb158-9" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="fu">training</span>(split)</span>
-<span id="cb158-10"><a href="#cb158-10" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">testing</span>(split)</span>
-<span id="cb158-11"><a href="#cb158-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb158-12"><a href="#cb158-12" aria-hidden="true" tabindex="-1"></a>train_last <span class="ot">&lt;-</span> train <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">subtype =</span> <span class="fu">as.logical</span>(subtype))</span>
-<span id="cb158-13"><a href="#cb158-13" aria-hidden="true" tabindex="-1"></a>test_last <span class="ot">&lt;-</span> test <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">subtype =</span> <span class="fu">as.logical</span>(subtype))</span>
-<span id="cb158-14"><a href="#cb158-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb158-15"><a href="#cb158-15" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">FFTrees</span>(</span>
-<span id="cb158-16"><a href="#cb158-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> subtype <span class="sc">~</span> .,</span>
-<span id="cb158-17"><a href="#cb158-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> train_last,</span>
-<span id="cb158-18"><a href="#cb158-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">data.test =</span> test_last,</span>
-<span id="cb158-19"><a href="#cb158-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">decision.labels =</span> <span class="fu">c</span>(<span class="st">"No CIMP"</span>, <span class="st">"CIMP"</span>),</span>
-<span id="cb158-20"><a href="#cb158-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">do.comp =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb158-4"><a href="#cb158-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"cimp.rds"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb158-5"><a href="#cb158-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(subtype, <span class="at">.after =</span> rowname) <span class="sc">%&gt;%</span> </span>
+<span id="cb158-6"><a href="#cb158-6" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
+<span id="cb158-7"><a href="#cb158-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span><span class="fu">c</span>(rowname, subtype)) <span class="sc">%&gt;%</span> </span>
+<span id="cb158-8"><a href="#cb158-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">%&gt;%</span> </span>
+<span id="cb158-9"><a href="#cb158-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">v =</span> <span class="fu">var</span>(value)) <span class="sc">%&gt;%</span> </span>
+<span id="cb158-10"><a href="#cb158-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(v)) <span class="sc">%&gt;%</span> </span>
+<span id="cb158-11"><a href="#cb158-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb158-12"><a href="#cb158-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>v) <span class="sc">%&gt;%</span> </span>
+<span id="cb158-13"><a href="#cb158-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">"name"</span>, <span class="at">values_from =</span> <span class="st">"value"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb158-14"><a href="#cb158-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2002</span>)</span>
+<span id="cb158-15"><a href="#cb158-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb158-16"><a href="#cb158-16" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb158-17"><a href="#cb158-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">subtype =</span> <span class="fu">fct_recode</span>(subtype, <span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"CIMP"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"noCIMP"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb158-18"><a href="#cb158-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>rowname)</span>
+<span id="cb158-19"><a href="#cb158-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb158-20"><a href="#cb158-20" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1023</span>)</span>
+<span id="cb158-21"><a href="#cb158-21" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(df, <span class="at">strata =</span> subtype)</span>
+<span id="cb158-22"><a href="#cb158-22" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="fu">training</span>(split)</span>
+<span id="cb158-23"><a href="#cb158-23" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">testing</span>(split)</span>
+<span id="cb158-24"><a href="#cb158-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb158-25"><a href="#cb158-25" aria-hidden="true" tabindex="-1"></a>train_last <span class="ot">&lt;-</span> train <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">subtype =</span> <span class="fu">as.logical</span>(subtype))</span>
+<span id="cb158-26"><a href="#cb158-26" aria-hidden="true" tabindex="-1"></a>test_last <span class="ot">&lt;-</span> test <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">subtype =</span> <span class="fu">as.logical</span>(subtype))</span>
+<span id="cb158-27"><a href="#cb158-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb158-28"><a href="#cb158-28" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">FFTrees</span>(</span>
+<span id="cb158-29"><a href="#cb158-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> subtype <span class="sc">~</span> .,</span>
+<span id="cb158-30"><a href="#cb158-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> train_last,</span>
+<span id="cb158-31"><a href="#cb158-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">data.test =</span> test_last,</span>
+<span id="cb158-32"><a href="#cb158-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">decision.labels =</span> <span class="fu">c</span>(<span class="st">"No CIMP"</span>, <span class="st">"CIMP"</span>),</span>
+<span id="cb158-33"><a href="#cb158-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">do.comp =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Aiming to create a new FFTrees object:
 — Setting 'goal = bacc'
@@ -2021,10 +2049,10 @@ $ date      &lt;date&gt; 2022-12-19, 2022-12-19, 2022-12-19, 2022-12-19, 2022-12
 Successfully created a new FFTrees object.
 Aiming to define FFTs:
 Aiming to create FFTs with 'ifan' algorithm (chasing 'bacc'):
-Aiming to rank 100 cues (optimizing 'bacc'):
-Successfully ranked 100 cues.
-Successfully created 7 FFTs with 'ifan' algorithm.
-Successfully defined 7 FFTs.
+Aiming to rank 2000 cues (optimizing 'bacc'):
+Successfully ranked 2000 cues.
+Successfully created 6 FFTs with 'ifan' algorithm.
+Successfully defined 6 FFTs.
 Aiming to apply FFTs to 'train' data:
 Successfully applied FFTs to 'train' data.
 Aiming to rank FFTs by 'train' data:
@@ -2039,30 +2067,28 @@ Successfully fitted comparative algorithms.</code></pre>
 <div class="sourceCode cell-code" id="cb160"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb160-1"><a href="#cb160-1" aria-hidden="true" tabindex="-1"></a>fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>FFTrees 
-- Trees: 7 fast-and-frugal trees predicting subtype
+- Trees: 6 fast-and-frugal trees predicting subtype
 - Outcome costs: [hi = 0, fa = 1, mi = 1, cr = 0]
 
 FFT #1: Definition
-[1] If ABI1 &lt;= 1645.9, decide No CIMP.
-[2] If ABHD6 &gt; 934.36, decide CIMP.
-[3] If A2LD1 &gt; 48, decide No CIMP.
-[4] If ABCA5 &lt;= 129.2763, decide CIMP, otherwise, decide No CIMP.
+[1] If rbp1 &lt;= 312.58, decide CIMP.
+[2] If timp1 &lt;= 422.7819, decide CIMP, otherwise, decide No CIMP.
 
 FFT #1: Training Accuracy
 Training data: N = 138, Pos (+) = 69 (50%) 
 
 |          | True + | True - | Totals:
 |----------|--------|--------|
-| Decide + | hi  63 | fa   1 |      64
-| Decide - | mi   6 | cr  68 |      74
+| Decide + | hi  65 | fa   3 |      68
+| Decide - | mi   4 | cr  66 |      70
 |----------|--------|--------|
   Totals:        69       69   N = 138
 
-acc  = 94.9%   ppv  = 98.4%   npv  = 91.9%
-bacc = 94.9%   sens = 91.3%   spec = 98.6%
+acc  = 94.9%   ppv  = 95.6%   npv  = 94.3%
+bacc = 94.9%   sens = 94.2%   spec = 95.7%
 
 FFT #1: Training Speed, Frugality, and Cost
-mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
+mcu = 1.55,  pci = 1,  E(cost) = 0.051</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb162"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit, <span class="at">data =</span> <span class="st">"train"</span>, <span class="at">main =</span> <span class="st">"Risk of CIMP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -2086,23 +2112,23 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
 <span id="cb166-4"><a href="#cb166-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="lwkxeusgou" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lwkxeusgou table {
+<div id="ywwwasikiy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ywwwasikiy table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lwkxeusgou thead, #lwkxeusgou tbody, #lwkxeusgou tfoot, #lwkxeusgou tr, #lwkxeusgou td, #lwkxeusgou th {
+#ywwwasikiy thead, #ywwwasikiy tbody, #ywwwasikiy tfoot, #ywwwasikiy tr, #ywwwasikiy td, #ywwwasikiy th {
   border-style: none;
 }
 
-#lwkxeusgou p {
+#ywwwasikiy p {
   margin: 0;
   padding: 0;
 }
 
-#lwkxeusgou .gt_table {
+#ywwwasikiy .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2128,12 +2154,12 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#lwkxeusgou .gt_caption {
+#ywwwasikiy .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lwkxeusgou .gt_title {
+#ywwwasikiy .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2145,7 +2171,7 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   border-bottom-width: 0;
 }
 
-#lwkxeusgou .gt_subtitle {
+#ywwwasikiy .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2157,7 +2183,7 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   border-top-width: 0;
 }
 
-#lwkxeusgou .gt_heading {
+#ywwwasikiy .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2169,13 +2195,13 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#lwkxeusgou .gt_bottom_border {
+#ywwwasikiy .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lwkxeusgou .gt_col_headings {
+#ywwwasikiy .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2190,7 +2216,7 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#lwkxeusgou .gt_col_heading {
+#ywwwasikiy .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2210,7 +2236,7 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   overflow-x: hidden;
 }
 
-#lwkxeusgou .gt_column_spanner_outer {
+#ywwwasikiy .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2222,15 +2248,15 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   padding-right: 4px;
 }
 
-#lwkxeusgou .gt_column_spanner_outer:first-child {
+#ywwwasikiy .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lwkxeusgou .gt_column_spanner_outer:last-child {
+#ywwwasikiy .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lwkxeusgou .gt_column_spanner {
+#ywwwasikiy .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2242,11 +2268,11 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   width: 100%;
 }
 
-#lwkxeusgou .gt_spanner_row {
+#ywwwasikiy .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lwkxeusgou .gt_group_heading {
+#ywwwasikiy .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2272,7 +2298,7 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   text-align: left;
 }
 
-#lwkxeusgou .gt_empty_group_heading {
+#ywwwasikiy .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2287,15 +2313,15 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   vertical-align: middle;
 }
 
-#lwkxeusgou .gt_from_md > :first-child {
+#ywwwasikiy .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lwkxeusgou .gt_from_md > :last-child {
+#ywwwasikiy .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lwkxeusgou .gt_row {
+#ywwwasikiy .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2314,7 +2340,7 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   overflow-x: hidden;
 }
 
-#lwkxeusgou .gt_stub {
+#ywwwasikiy .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2327,7 +2353,7 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   padding-right: 5px;
 }
 
-#lwkxeusgou .gt_stub_row_group {
+#ywwwasikiy .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2341,15 +2367,15 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   vertical-align: top;
 }
 
-#lwkxeusgou .gt_row_group_first td {
+#ywwwasikiy .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lwkxeusgou .gt_row_group_first th {
+#ywwwasikiy .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lwkxeusgou .gt_summary_row {
+#ywwwasikiy .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2359,16 +2385,16 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   padding-right: 5px;
 }
 
-#lwkxeusgou .gt_first_summary_row {
+#ywwwasikiy .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lwkxeusgou .gt_first_summary_row.thick {
+#ywwwasikiy .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lwkxeusgou .gt_last_summary_row {
+#ywwwasikiy .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2378,7 +2404,7 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#lwkxeusgou .gt_grand_summary_row {
+#ywwwasikiy .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2388,7 +2414,7 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   padding-right: 5px;
 }
 
-#lwkxeusgou .gt_first_grand_summary_row {
+#ywwwasikiy .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2398,7 +2424,7 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#lwkxeusgou .gt_last_grand_summary_row_top {
+#ywwwasikiy .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2408,11 +2434,11 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#lwkxeusgou .gt_striped {
+#ywwwasikiy .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lwkxeusgou .gt_table_body {
+#ywwwasikiy .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2421,7 +2447,7 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#lwkxeusgou .gt_footnotes {
+#ywwwasikiy .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2435,7 +2461,7 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#lwkxeusgou .gt_footnote {
+#ywwwasikiy .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2444,7 +2470,7 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   padding-right: 5px;
 }
 
-#lwkxeusgou .gt_sourcenotes {
+#ywwwasikiy .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2458,7 +2484,7 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#lwkxeusgou .gt_sourcenote {
+#ywwwasikiy .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2466,63 +2492,63 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
   padding-right: 5px;
 }
 
-#lwkxeusgou .gt_left {
+#ywwwasikiy .gt_left {
   text-align: left;
 }
 
-#lwkxeusgou .gt_center {
+#ywwwasikiy .gt_center {
   text-align: center;
 }
 
-#lwkxeusgou .gt_right {
+#ywwwasikiy .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lwkxeusgou .gt_font_normal {
+#ywwwasikiy .gt_font_normal {
   font-weight: normal;
 }
 
-#lwkxeusgou .gt_font_bold {
+#ywwwasikiy .gt_font_bold {
   font-weight: bold;
 }
 
-#lwkxeusgou .gt_font_italic {
+#ywwwasikiy .gt_font_italic {
   font-style: italic;
 }
 
-#lwkxeusgou .gt_super {
+#ywwwasikiy .gt_super {
   font-size: 65%;
 }
 
-#lwkxeusgou .gt_footnote_marks {
+#ywwwasikiy .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lwkxeusgou .gt_asterisk {
+#ywwwasikiy .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lwkxeusgou .gt_indent_1 {
+#ywwwasikiy .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lwkxeusgou .gt_indent_2 {
+#ywwwasikiy .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lwkxeusgou .gt_indent_3 {
+#ywwwasikiy .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lwkxeusgou .gt_indent_4 {
+#ywwwasikiy .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lwkxeusgou .gt_indent_5 {
+#ywwwasikiy .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2554,6 +2580,42 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
     <tr><td headers="algorithm" class="gt_row gt_left">fftrees</td>
 <td headers="n" class="gt_row gt_right">46</td>
 <td headers="hi" class="gt_row gt_right">20</td>
+<td headers="fa" class="gt_row gt_right">3</td>
+<td headers="mi" class="gt_row gt_right">3</td>
+<td headers="cr" class="gt_row gt_right">20</td>
+<td headers="sens" class="gt_row gt_right">0.870</td>
+<td headers="spec" class="gt_row gt_right">0.870</td>
+<td headers="far" class="gt_row gt_right">0.130</td>
+<td headers="ppv" class="gt_row gt_right">0.870</td>
+<td headers="npv" class="gt_row gt_right">0.870</td>
+<td headers="acc" class="gt_row gt_right">0.870</td>
+<td headers="bacc" class="gt_row gt_right">0.870</td>
+<td headers="wacc" class="gt_row gt_right">0.870</td>
+<td headers="dprime" class="gt_row gt_right">2.176</td>
+<td headers="cost_dec" class="gt_row gt_right">0.13</td>
+<td headers="cost_cue" class="gt_row gt_right">0</td>
+<td headers="cost" class="gt_row gt_right">0.13</td></tr>
+    <tr><td headers="algorithm" class="gt_row gt_left">lr</td>
+<td headers="n" class="gt_row gt_right">46</td>
+<td headers="hi" class="gt_row gt_right">9</td>
+<td headers="fa" class="gt_row gt_right">4</td>
+<td headers="mi" class="gt_row gt_right">14</td>
+<td headers="cr" class="gt_row gt_right">19</td>
+<td headers="sens" class="gt_row gt_right">0.391</td>
+<td headers="spec" class="gt_row gt_right">0.826</td>
+<td headers="far" class="gt_row gt_right">0.174</td>
+<td headers="ppv" class="gt_row gt_right">0.692</td>
+<td headers="npv" class="gt_row gt_right">0.576</td>
+<td headers="acc" class="gt_row gt_right">0.609</td>
+<td headers="bacc" class="gt_row gt_right">0.609</td>
+<td headers="wacc" class="gt_row gt_right">0.609</td>
+<td headers="dprime" class="gt_row gt_right">0.642</td>
+<td headers="cost_dec" class="gt_row gt_right">NA</td>
+<td headers="cost_cue" class="gt_row gt_right">NA</td>
+<td headers="cost" class="gt_row gt_right">NA</td></tr>
+    <tr><td headers="algorithm" class="gt_row gt_left">cart</td>
+<td headers="n" class="gt_row gt_right">46</td>
+<td headers="hi" class="gt_row gt_right">20</td>
 <td headers="fa" class="gt_row gt_right">2</td>
 <td headers="mi" class="gt_row gt_right">3</td>
 <td headers="cr" class="gt_row gt_right">21</td>
@@ -2566,78 +2628,42 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
 <td headers="bacc" class="gt_row gt_right">0.891</td>
 <td headers="wacc" class="gt_row gt_right">0.891</td>
 <td headers="dprime" class="gt_row gt_right">2.394</td>
-<td headers="cost_dec" class="gt_row gt_right">0.109</td>
-<td headers="cost_cue" class="gt_row gt_right">0</td>
-<td headers="cost" class="gt_row gt_right">0.109</td></tr>
-    <tr><td headers="algorithm" class="gt_row gt_left">lr</td>
-<td headers="n" class="gt_row gt_right">46</td>
-<td headers="hi" class="gt_row gt_right">20</td>
-<td headers="fa" class="gt_row gt_right">8</td>
-<td headers="mi" class="gt_row gt_right">3</td>
-<td headers="cr" class="gt_row gt_right">15</td>
-<td headers="sens" class="gt_row gt_right">0.870</td>
-<td headers="spec" class="gt_row gt_right">0.652</td>
-<td headers="far" class="gt_row gt_right">0.348</td>
-<td headers="ppv" class="gt_row gt_right">0.714</td>
-<td headers="npv" class="gt_row gt_right">0.833</td>
-<td headers="acc" class="gt_row gt_right">0.761</td>
-<td headers="bacc" class="gt_row gt_right">0.761</td>
-<td headers="wacc" class="gt_row gt_right">0.761</td>
-<td headers="dprime" class="gt_row gt_right">1.470</td>
-<td headers="cost_dec" class="gt_row gt_right">NA</td>
-<td headers="cost_cue" class="gt_row gt_right">NA</td>
-<td headers="cost" class="gt_row gt_right">NA</td></tr>
-    <tr><td headers="algorithm" class="gt_row gt_left">cart</td>
-<td headers="n" class="gt_row gt_right">46</td>
-<td headers="hi" class="gt_row gt_right">23</td>
-<td headers="fa" class="gt_row gt_right">7</td>
-<td headers="mi" class="gt_row gt_right">0</td>
-<td headers="cr" class="gt_row gt_right">16</td>
-<td headers="sens" class="gt_row gt_right">1.000</td>
-<td headers="spec" class="gt_row gt_right">0.696</td>
-<td headers="far" class="gt_row gt_right">0.304</td>
-<td headers="ppv" class="gt_row gt_right">0.767</td>
-<td headers="npv" class="gt_row gt_right">1.000</td>
-<td headers="acc" class="gt_row gt_right">0.848</td>
-<td headers="bacc" class="gt_row gt_right">0.848</td>
-<td headers="wacc" class="gt_row gt_right">0.848</td>
-<td headers="dprime" class="gt_row gt_right">2.803</td>
 <td headers="cost_dec" class="gt_row gt_right">NA</td>
 <td headers="cost_cue" class="gt_row gt_right">NA</td>
 <td headers="cost" class="gt_row gt_right">NA</td></tr>
     <tr><td headers="algorithm" class="gt_row gt_left">rf</td>
 <td headers="n" class="gt_row gt_right">46</td>
-<td headers="hi" class="gt_row gt_right">23</td>
-<td headers="fa" class="gt_row gt_right">3</td>
-<td headers="mi" class="gt_row gt_right">0</td>
-<td headers="cr" class="gt_row gt_right">20</td>
-<td headers="sens" class="gt_row gt_right">1.000</td>
-<td headers="spec" class="gt_row gt_right">0.870</td>
-<td headers="far" class="gt_row gt_right">0.130</td>
-<td headers="ppv" class="gt_row gt_right">0.885</td>
-<td headers="npv" class="gt_row gt_right">1.000</td>
+<td headers="hi" class="gt_row gt_right">22</td>
+<td headers="fa" class="gt_row gt_right">2</td>
+<td headers="mi" class="gt_row gt_right">1</td>
+<td headers="cr" class="gt_row gt_right">21</td>
+<td headers="sens" class="gt_row gt_right">0.957</td>
+<td headers="spec" class="gt_row gt_right">0.913</td>
+<td headers="far" class="gt_row gt_right">0.087</td>
+<td headers="ppv" class="gt_row gt_right">0.917</td>
+<td headers="npv" class="gt_row gt_right">0.955</td>
 <td headers="acc" class="gt_row gt_right">0.935</td>
 <td headers="bacc" class="gt_row gt_right">0.935</td>
 <td headers="wacc" class="gt_row gt_right">0.935</td>
-<td headers="dprime" class="gt_row gt_right">3.391</td>
+<td headers="dprime" class="gt_row gt_right">2.921</td>
 <td headers="cost_dec" class="gt_row gt_right">NA</td>
 <td headers="cost_cue" class="gt_row gt_right">NA</td>
 <td headers="cost" class="gt_row gt_right">NA</td></tr>
     <tr><td headers="algorithm" class="gt_row gt_left">svm</td>
 <td headers="n" class="gt_row gt_right">46</td>
 <td headers="hi" class="gt_row gt_right">22</td>
-<td headers="fa" class="gt_row gt_right">3</td>
+<td headers="fa" class="gt_row gt_right">2</td>
 <td headers="mi" class="gt_row gt_right">1</td>
-<td headers="cr" class="gt_row gt_right">20</td>
+<td headers="cr" class="gt_row gt_right">21</td>
 <td headers="sens" class="gt_row gt_right">0.957</td>
-<td headers="spec" class="gt_row gt_right">0.870</td>
-<td headers="far" class="gt_row gt_right">0.130</td>
-<td headers="ppv" class="gt_row gt_right">0.880</td>
-<td headers="npv" class="gt_row gt_right">0.952</td>
-<td headers="acc" class="gt_row gt_right">0.913</td>
-<td headers="bacc" class="gt_row gt_right">0.913</td>
-<td headers="wacc" class="gt_row gt_right">0.913</td>
-<td headers="dprime" class="gt_row gt_right">2.703</td>
+<td headers="spec" class="gt_row gt_right">0.913</td>
+<td headers="far" class="gt_row gt_right">0.087</td>
+<td headers="ppv" class="gt_row gt_right">0.917</td>
+<td headers="npv" class="gt_row gt_right">0.955</td>
+<td headers="acc" class="gt_row gt_right">0.935</td>
+<td headers="bacc" class="gt_row gt_right">0.935</td>
+<td headers="wacc" class="gt_row gt_right">0.935</td>
+<td headers="dprime" class="gt_row gt_right">2.921</td>
 <td headers="cost_dec" class="gt_row gt_right">NA</td>
 <td headers="cost_cue" class="gt_row gt_right">NA</td>
 <td headers="cost" class="gt_row gt_right">NA</td></tr>
@@ -2648,16 +2674,71 @@ mcu = 1.8,  pci = 0.98,  E(cost) = 0.051</code></pre>
 </div>
 </div>
 </div>
-<ol start="2" type="1">
-<li>Прогнозиране на възрастта от ДНК метилация<span class="citation" data-cites="akalin2020computational">(<a href="#ref-akalin2020computational" role="doc-biblioref">Akalin 2020</a>)</span>.</li>
-</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="fftrees_summary.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Източник: <span class="citation" data-cites="phillips2017fftrees">(<a href="#ref-phillips2017fftrees" role="doc-biblioref">Phillips et al. 2017</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<p>2.2. Прогнозиране възрастта на пациенти на базата на ДНК метилация <span class="citation" data-cites="akalin2020computational">(<a href="#ref-akalin2020computational" role="doc-biblioref">Akalin 2020</a>)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="tidymodels.png" class="img-fluid figure-img" alt="[@tidymodels]"></p>
+<p></p><figcaption class="figure-caption"><span class="citation" data-cites="tidymodels">(<a href="#ref-tidymodels" role="doc-biblioref">Kuhn and Wickham 2020</a>)</span></figcaption><p></p>
+</figure>
+</div>
 <p>Вторият пример касае данни, при които прогнозираната променлива е количествена. Този път ще се опитаме да прогнозираме възрастта на индивидите от техните нива на ДНК метилиране. Метилирането е модификация на ДНК, която има отражение върху генната регулация и състоянието на клетката. Доказано е, че метилирането може да се използва за прогнозиране възрастта на индивида, от който е взета пробата. Сега ще се опитаме да тестваме това с набор от данни, съдържащ 108 проби.</p>
+<p>2.2.1. Последователни стъпки при моделирането с tidymodels.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="modelling_steps.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Източник: <span class="citation" data-cites="kuhn2022tidy">(<a href="#ref-kuhn2022tidy" role="doc-biblioref">Kuhn and Silge 2022</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li>разделяне на данните на данни за трениране, данни за тестване и данни за валидиране на модела;</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="data_splitting.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Източник: <span class="citation" data-cites="kuhn2022tidy">Kuhn and Silge (<a href="#ref-kuhn2022tidy" role="doc-biblioref">2022</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li>създаване на извадки от данните за кросвалидиране;</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="crossvalidation.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Източник: <span class="citation" data-cites="rhys2020machine">Rhys (<a href="#ref-rhys2020machine" role="doc-biblioref">2020</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<ul>
+<li><p>подготовка на данните за използването им от модела;</p></li>
+<li><p>избор на критерии за оценка на модела;</p></li>
+<li><p>избор на модел;</p></li>
+<li><p>“сглобяване” на работния поток;</p></li>
+<li><p>избор на работна рамка;</p></li>
+<li><p>настройка на параметрите и моделиране;</p></li>
+<li><p>избор на най-добрия модел по предварително избраните критерии;</p></li>
+<li><p>повторно моделиране с тренировъчните данни;</p></li>
+<li><p>финално моделиране с тестовите данни - тестване на модела;</p></li>
+<li><p>преглед на най-важните за модела променливи;</p></li>
+<li><p>прогнозиране с нови данни или върху тестовите данни;</p></li>
+<li><p>публикуване на модела.</p></li>
+</ul>
 
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-akalin2020computational" class="csl-entry" role="doc-biblioentry">
 Akalin, Altuna. 2020. <em>Computational Genomics with r</em>. CRC Press.
+</div>
+<div id="ref-factoextra" class="csl-entry" role="doc-biblioentry">
+Kassambara, Alboukadel, and Fabian Mundt. 2020. <span>“Factoextra: Extract and Visualize the Results of Multivariate Data Analyses.”</span> <a href="https://CRAN.R-project.org/package=factoextra">https://CRAN.R-project.org/package=factoextra</a>.
+</div>
+<div id="ref-kuhn2022tidy" class="csl-entry" role="doc-biblioentry">
+Kuhn, Max, and Julia Silge. 2022. <em>Tidy Modeling with r</em>. " O’Reilly Media, Inc.".
 </div>
 <div id="ref-tidymodels" class="csl-entry" role="doc-biblioentry">
 Kuhn, Max, and Hadley Wickham. 2020. <span>“Tidymodels: A Collection of Packages for Modeling and Machine Learning Using Tidyverse Principles.”</span> <a href="https://www.tidymodels.org">https://www.tidymodels.org</a>.
@@ -2670,6 +2751,12 @@ Patil, Indrajeet. 2021a. <span>“<span></span>Visualizations with Statistical D
 </div>
 <div id="ref-ggstatsplot-2" class="csl-entry" role="doc-biblioentry">
 ———. 2021b. <span>“<span></span>Visualizations with Statistical Details: The <span></span>’Ggstatsplot’<span></span> Approach<span></span>”</span> 6: 3167. <a href="https://doi.org/10.21105/joss.03167">https://doi.org/10.21105/joss.03167</a>.
+</div>
+<div id="ref-phillips2017fftrees" class="csl-entry" role="doc-biblioentry">
+Phillips, Nathaniel D, Hansjörg Neth, Jan K Woike, and Wolfgang Gaissmaier. 2017. <span>“FFTrees: A Toolbox to Create, Visualize, and Evaluate Fast-and-Frugal Decision Trees.”</span> <em>Judgment and Decision Making</em> 12 (4): 344–68.
+</div>
+<div id="ref-rhys2020machine" class="csl-entry" role="doc-biblioentry">
+Rhys, Hefin. 2020. <em>Machine Learning with r, the Tidyverse, and Mlr</em>. Simon; Schuster.
 </div>
 <div id="ref-wickham2016r" class="csl-entry" role="doc-biblioentry">
 Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. " O’Reilly Media, Inc.".

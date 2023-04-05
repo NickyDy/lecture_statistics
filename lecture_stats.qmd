@@ -120,18 +120,23 @@ write_rds(students, "students_clean.rds")
 tibble(
   x = c(1, 2, 5), 
   y = c("h", "m", "g"),
-  z = c(0.08, 0.83, 0.60)
-)
+  z = c(0.08, 0.83, 0.60))
+
+# Добавяне на нов ред
+tibble(
+  x = c(1, 2, 5), 
+  y = c("h", "m", "g"),
+  z = c(0.08, 0.83, 0.60)) %>% 
+  add_row(x = 10, y = "y", z = 12.12)
 
 tribble(
   ~x, ~y, ~z,
   "h", 1, 0.08,
   "m", 2, 0.83,
-  "g", 5, 0.60,
-)
+  "g", 5, 0.60)
 
-df <- tibble(
-  integer = sample(c(1:50), 100, replace = T),
+df <- data.frame(
+  integer = sample(c(1L:50L), 100, replace = T),
   double = rnorm(100),
   character = sample(letters[1:26], 100, replace = T),
   factor = factor(sample(c("tree", "animal", "fungi"), 100, replace = T)),
@@ -193,6 +198,11 @@ diss %>% mutate(elev_slope = elev/slope) %>% View()
 diss %>% mutate(elev_slope = elev/slope, .after = slope) %>% View()
 
 diss %>% mutate(elev_slope = elev/slope, .after = slope, .keep = "used") %>% View()
+
+# Промяна на отделни стойности в таблицата с данните
+diss %>% mutate(com = if_else(com == "a", "A", com))
+
+diss %>% mutate(elev = if_else(elev <= 1000, 1000, elev)) %>% arrange(elev)
 ```
 
 7.  Избор на колонки с функцията select().
@@ -890,6 +900,7 @@ fviz_pca_biplot(
 ```{r}
 library(tidymodels)
 library(FFTrees)
+library(tidyverse)
 
 df <- read_rds("cimp.rds") %>% 
   relocate(subtype, .after = rowname) %>% 
@@ -901,7 +912,7 @@ df <- df %>% pivot_longer(-c(rowname, subtype)) %>%
   ungroup() %>% 
   select(-v) %>% 
   pivot_wider(names_from = "name", values_from = "value") %>% 
-  select(1:2002)
+  select(1:1002)
 
 df <- df %>% 
   mutate(subtype = fct_recode(subtype, "TRUE" = "CIMP", "FALSE" = "noCIMP")) %>% 
@@ -945,15 +956,15 @@ fit$competition$test %>%
 
 2.2.1. Последователни стъпки при моделирането с tidymodels.
 
-![Източник:](modelling_steps.png)
+![Източник: [@kuhn2022tidy]](modelling_steps.png)
 
 -   разделяне на данните на данни за трениране, данни за тестване и данни за валидиране на модела;
 
-![Източник:](data_splitting.png)
+![Източник: @kuhn2022tidy](data_splitting.png)
 
 -   създаване на извадки от данните за кросвалидиране;
 
-![Източник:](crossvalidation.png)
+![Източник: @rhys2020machine](crossvalidation.png)
 
 -   подготовка на данните за използването им от модела;
 
