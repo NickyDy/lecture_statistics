@@ -40,6 +40,8 @@ install.packages("tidyverse")
 
 remove.packages("tidyverse")
 
+?read_csv()
+
 6.  Стартиране на код - Ctrl + Enter.
 
 ```{r}
@@ -72,7 +74,7 @@ diss <- read_csv("diss.csv")
 glimpse(diss)
 ```
 
-9.  Отстраняване на нежелани стойности още при импортирането.
+9.  Отстраняване на нежелани/липсващи стойности още при импортирането.
 
 ```{r}
 students <- read_csv("students.csv", na = c("N/A", "NA"))
@@ -90,7 +92,7 @@ students <- read_csv("students.csv", na = c("N/A", "NA"), col_types = "icccd")
 students %>% rename(student_id = `Student ID`, full_name = `Full Name`)
 ```
 
-12. Автоматично преименуване.
+12. Бързо преименуване/изчистване имената на колонките.
 
 ```{r}
 library(janitor)
@@ -135,20 +137,20 @@ tribble(
   "m", 2, 0.83,
   "g", 5, 0.60)
 
+# Най-често използваните типове променливи
 df <- data.frame(
   integer = sample(c(1L:50L), 100, replace = T),
   double = rnorm(100),
   character = sample(letters[1:26], 100, replace = T),
   factor = factor(sample(c("tree", "animal", "fungi"), 100, replace = T)),
   logical = as.logical(sample(c("TRUE", "FALSE"), 100, replace = T)),
-  date = Sys.Date() - 100
-)
+  date = Sys.Date() - 100)
 glimpse(df)
 ```
 
 ### II. Трансформиране на данните.
 
-1.  Tidyverse и Dplyr.
+1.  Tidyverse и dplyr.
 
 ![](tidyverse2.png)
 
@@ -172,6 +174,8 @@ diss_up_to_1000 <- diss %>% filter(!elev > 1500)
 diss %>% arrange(elev)
 
 diss %>% arrange(desc(elev))
+
+diss %>% arrange(-elev)
 ```
 
 4.  Уникални редове с функцията distinct().
