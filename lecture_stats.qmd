@@ -428,7 +428,7 @@ diss %>% ggplot(aes(elev, slope)) +
        title = "Взаимовръзка между надморската височина и наклона на склоновете",
        color = "Топография\nна склона", shape = "Топография\nна склона",
        caption = "Източник на данните: Дяков, 2013") +
-  theme(text = element_text(size = 16))
+  theme(text = element_text(size = 14))
 ```
 
 2.  Основни видове графики в ggplot2.
