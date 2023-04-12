@@ -124,18 +124,27 @@ tibble(
   y = c("h", "m", "g"),
   z = c(0.08, 0.83, 0.60))
 
-# Добавяне на нов ред
-tibble(
+data.frame(
   x = c(1, 2, 5), 
   y = c("h", "m", "g"),
-  z = c(0.08, 0.83, 0.60)) %>% 
-  add_row(x = 10, y = "y", z = 12.12)
+  z = c(0.08, 0.83, 0.60))
 
 tribble(
   ~x, ~y, ~z,
   "h", 1, 0.08,
   "m", 2, 0.83,
   "g", 5, 0.60)
+```
+
+![](tibble_data_frame.jpg)
+
+```{r}
+# Добавяне на нов ред
+tibble(
+  x = c(1, 2, 5), 
+  y = c("h", "m", "g"),
+  z = c(0.08, 0.83, 0.60)) %>% 
+  add_row(x = 10, y = "y", z = 12.12)
 
 # Най-често използваните типове променливи
 df <- data.frame(
@@ -505,6 +514,8 @@ diss %>% ggplot(aes(elev, s_ha, color = exp, shape = top)) +
 ```{r}
 ggsave("plot.png")
 ```
+
+![Hadley Wickham](hadley_wickham.png)
 
 ### V. Тестване на хипотези.
 
