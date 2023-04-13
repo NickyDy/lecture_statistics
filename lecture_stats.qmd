@@ -1,5 +1,5 @@
 ---
-title: "Анализ на данни, визуализация и тестване на хипотези."
+title: "Анализ на данни, визуализация и тестване на хипотези с R!"
 author: "Николай Дяков"
 format: html
 date: 2023-03-25
@@ -166,15 +166,16 @@ glimpse(df)
 2.  Филтриране на редове с функцията filter().
 
 ```{r}
-diss %>% filter(elev > 1500)
+diss %>% filter(elev > 1500) %>% View
 
 diss %>% filter(elev > 1500 & top == "flat")
 
-diss %>% filter(top == "concave" | exp == "e_nw")
+diss %>% filter(top == "concave" | exp == "e_nw") %>% View()
 
-diss %>% filter(com %in% c("a", "b"))
+diss %>% filter(com %in% c("a", "b")) %>% View
 
-diss_up_to_1000 <- diss %>% filter(!elev > 1500)
+diss_up_to_1500 <- diss %>% filter(!elev > 1500)
+diss_1000 <- diss %>% filter(elev < 1000)
 ```
 
 3.  Подреждане с функцията arrange().
@@ -192,7 +193,7 @@ diss %>% arrange(-elev)
 ```{r}
 diss %>% distinct()
 
-diss %>% distinct(top, exp)
+diss %>% distinct(top, exp) %>% View
 ```
 
 5.  Преброяване на уникалните редове с функцията count().
@@ -200,7 +201,7 @@ diss %>% distinct(top, exp)
 ```{r}
 diss %>% count(top, exp)
 
-diss %>% count(top, exp, sort = T)
+diss %>% count(top, exp, sort = TRUE)
 ```
 
 6.  Създаване на нови колонки с функцията mutate().
@@ -303,7 +304,7 @@ diss %>% slice_min(order_by = elev, n = 10)
 
 diss %>% slice_max(order_by = elev, n = 10)
 
-diss %>% slice_sample(n = 10)
+diss %>% slice_sample(n = 5)
 ```
 
 ### III. Изчистване/спретване на данните.
@@ -425,7 +426,6 @@ diss %>% ggplot(aes(elev, slope)) +
   geom_point(size = 3, aes(color = top, shape = top)) +
   geom_smooth(method = "loess", se = F) +
   labs(x = "Надморска височина (m)", y = "Наклон на склона (°)",
-       title = "Взаимовръзка между надморската височина и наклона на склоновете",
        color = "Топография\nна склона", shape = "Топография\nна склона",
        caption = "Източник на данните: Дяков, 2013") +
   theme(text = element_text(size = 14))
@@ -840,7 +840,7 @@ rownames(groups)= colnames(leu)
 
 pheatmap(leu, show_rownames = FALSE, show_colnames = FALSE,
          annotation_col = groups,
-         scale = "none", clustering_method="ward.D2",
+         scale = "none", clustering_method = "ward.D2",
          clustering_distance_cols = "euclidean")
 ```
 
